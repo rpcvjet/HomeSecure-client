@@ -37,13 +37,13 @@ module.exports = function() {
     }
 
     // first set up a session to connect the output and input(s)
-    speech_to_text.createSession(null, function(err, session) {
+    speech_to_text.createRecognizeStream(null, function(err, session) {
       if (err) {
         exit(err);
       }
 
       // set up the live output handler
-      speech_to_text.observeResult({
+      speech_to_text.createRecognizeStream({
         cookie_session: session.cookie_session,
         session_id: session.session_id,
         interim_results: true,
@@ -59,7 +59,7 @@ module.exports = function() {
 
 
       // set up the recognize live to handle inputs
-      var transcriptInput = speech_to_text.recognizeLive({
+      var transcriptInput = speech_to_text.createRecognizeStream({
         content_type: hasFlac ? 'audio/flac' : 'audio/l16; rate=44100',
         cookie_session: session.cookie_session,
         session_id: session.session_id,
@@ -88,7 +88,7 @@ module.exports = function() {
 
         flac.stdout.pipe(transcriptInput);
         var micInput = transcriptInput;
-        console.log(micInput);
+        console.log(transcriptInput, 'input goes here');
       } else {
         mic.stdout.pipe(transcriptInput);
       }
