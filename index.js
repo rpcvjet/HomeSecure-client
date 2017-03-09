@@ -1,8 +1,8 @@
 'use strict';
 const fs = require('fs');
 const express = require('express');
-const TextToSpeechV1 = require('watson-developer-cloud/text-to-speech/v1');
-var Sound = require('node-aplay');
+//const TextToSpeechV1 = require('watson-developer-cloud/text-to-speech/v1');
+//var Sound = require('node-aplay');
 // var RaspiCam = require('raspicam');
 var Gpio = require('onoff').Gpio,
   led = new Gpio(16, 'out');
@@ -14,12 +14,12 @@ button.watch(function(err, value) {
   if (err) exit();
   led.writeSync(led.readSync() === 0 ? 1 : 0);
 //do stuff
-  new Sound('welcome.wav').play();
   console.log('the file is playing');
+
+ // new Sound('welcome.wav').play();
 
 });//end of button
 function exit() {
-  buzzer.unexport();
   button.unexport();
   process.exit();
 }
