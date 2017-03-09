@@ -2,6 +2,7 @@
 
 const takePicture = require('./controllers/photo');
 const passwordReader = require('./controllers/password');
+const unlockDoor = require('./controllers/unlock');
 
 let readline = require('readline');
 const rl = readline.createInterface({
@@ -26,13 +27,22 @@ rl.on('line', (line) => {
       rl.prompt();
     });
     break;
-  case 'password':
+  case 'p':
     passwordReader()
     .then((pass) => {
 	tempPassword = pass
 	console.log('tempPassword', tempPassword)
 	rl.prompt()
     })
+    .catch((err) => {
+      console.log(err);
+      rl.prompt();
+    });
+    break;
+  case 'u':
+    console.log('Now to unlock');
+    unlockDoor()
+    .then(() => rl.prompt())
     .catch((err) => {
       console.log(err);
       rl.prompt();
