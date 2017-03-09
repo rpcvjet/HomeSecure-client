@@ -18,7 +18,6 @@ module.exports = function() {
       // I think cp.execSync throws any time the exit code isn't 0
     }
 
-
     var speech_to_text = watson.speech_to_text({
       username: process.env.STT_USERNAME,
       password: process.env.STT_PASSWORD,
@@ -27,9 +26,7 @@ module.exports = function() {
     });
 
     function exit(err) {
-
       console.error(err.stack || err);
-      process.exit(1);
     }
 
     function updateLine(text) {
@@ -51,6 +48,8 @@ module.exports = function() {
         if (err) {
           exit(err);
         }
+	console.log('done son', transcript)
+	console.dir(transcript, {depth: Infinity})
         // "final" indicates that the service is done processing that bit of audio (usually after a pause)
         // in that case, add a newline so that we don't overwrite it with text from the next bit of audio
         updateLine(transcript.results[0].alternatives[0].transcript + (transcript.results[0].final ? '\n' : ''));
@@ -64,11 +63,15 @@ module.exports = function() {
         cookie_session: session.cookie_session,
         session_id: session.session_id,
         interim_results: true,
-        continuous: true,
-      }, function(err /*, finalTranscript */) {
+        continuous: false,
+      }, function(err, transcript) {
         if (err) {
           exit(err);
         }
+
+	console.log('boooya', transcript)
+        mic.kill();
+	resolve(transcript)
 
       }).on('error', console.error);
 
