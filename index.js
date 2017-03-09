@@ -15,7 +15,6 @@ rl.on('line', (line) => {
   switch(line.trim()) {
   case 'photo':
     console.log("Get Ready for a photo");
-    break;
   default:
     console.log('BOOOOOOOYAAAA', line);
     takePicture.camera.start();
