@@ -13,23 +13,19 @@ raspi.init(() => {
   output.write(input.read());
   console.log('Yes it is...');
 });
+var Gpio = require('onoff').Gpio,
+  led = new Gpio(17, 'out');
 
+var iv = setInterval(function(){
+  led.writeSync(led.readSync() === 0 ? 1 : 0);
+}, 500);
 
-// var raspi = require('raspi-io');
-// var five = require('johnny-five');
-// var board = new five.Board({
-//   io: new raspi()
-// });
-//
-// board.on('ready', function() {
-//   // Create an Led on pin 7 on P1 (GPIO4)
-//   // and strobe it on/off
-//   var led = new five.Led('P1-7');
-//   led.strobe(500);
-// });
-
-
-
+// Stop blinking the LED and turn it off after 5 seconds.
+setTimeout(function() {
+  clearInterval(iv); // Stop blinking
+  led.writeSync(0);  // Turn LED off.
+  led.unexport();    // Unexport GPIO and free resources
+}, 5000);
 
 //
 // var Gpio = require('onoff').Gpio;
