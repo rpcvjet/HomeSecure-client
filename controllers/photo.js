@@ -4,7 +4,7 @@ var RaspiCam = require('raspicam');
 
 var camera = new RaspiCam({
   mode: 'photo',
-  output: './photo/image.jpg' + Math.random(),
+  output: './photo/image.jpg',
   encoding: 'jpg',
   timeout: 3000, // take the picture immediately
 });
@@ -22,8 +22,8 @@ module.exports = function() {
     camera.on('exit', function( timestamp ){
       console.log('photo child process has exited at ' + timestamp );
       camera.stop();
-    //resolve image path 
-	 resolve(`${__dirname}./photo/image.jpg`);
+    //resolve image path
+      resolve(`${__dirname}/photo/image.jpg`);
     });
 
     camera.start();
