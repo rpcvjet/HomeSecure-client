@@ -5,11 +5,30 @@
 const raspi = require('raspi');
 const gpio = require('raspi-gpio');
 
+
+console.log('Is this working?');
 raspi.init(() => {
   const input = new gpio.DigitalInput('P1-3');
   const output = new gpio.DigitalOutput('P1-5');
   output.write(input.read());
+  console.log('Yes it is...');
 });
+
+
+// var raspi = require('raspi-io');
+// var five = require('johnny-five');
+// var board = new five.Board({
+//   io: new raspi()
+// });
+//
+// board.on('ready', function() {
+//   // Create an Led on pin 7 on P1 (GPIO4)
+//   // and strobe it on/off
+//   var led = new five.Led('P1-7');
+//   led.strobe(500);
+// });
+
+
 
 
 //
@@ -22,7 +41,7 @@ raspi.init(() => {
 // });
 
 
-
+console.log('If this came up without the yes then nope.');
 
 //
 //
