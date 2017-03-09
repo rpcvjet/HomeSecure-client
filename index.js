@@ -1,9 +1,8 @@
 'use strict';
-require('dotenv');
 const fs = require('fs');
 const express = require('express');
 const TextToSpeechV1 = require('watson-developer-cloud/text-to-speech/v1');
-const app = express();
+var Sound = require('node-aplay');
 // var RaspiCam = require('raspicam');
 var Gpio = require('onoff').Gpio,
   led = new Gpio(16, 'out');
@@ -15,23 +14,10 @@ button.watch(function(err, value) {
   if (err) exit();
   led.writeSync(led.readSync() === 0 ? 1 : 0);
 //do stuff
-const text_to_speech = new TextToSpeechV1({
-  username: '8c33d8d9-9c61-4e7e-a998-310bf03a24fe',
-  password: 'Ner5yJEu40vD',
-});
-var params = {
-  text: 'Welcome home. Your picture will now be taken for authentication purposes',
-  voice: 'en-US_AllisonVoice', // Optional voice
-  accept: 'audio/wav',
-};
-// Pipe the synthesized text to a file
-text_to_speech.synthesize(params).pipe(fs.createWriteStream('new.wav'));
-console.log('this is before the get route');
-  res.set({'Content-Type': 'audio/wav'});
-  var readStream = fs.createReadStream(filepath);
-  readStream.pipe(res);
+  new Sound('welcome.wav').play();
+  console.log('the file is playing');
 
-});//end of button function
+});//end of button
 function exit() {
   buzzer.unexport();
   button.unexport();

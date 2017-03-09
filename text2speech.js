@@ -1,4 +1,3 @@
-require('dotenv');
 const fs = require('fs');
 const express = require('express');
 const TextToSpeechV1 = require('watson-developer-cloud/text-to-speech/v1');
