@@ -3,7 +3,6 @@ const fs = require('fs');
 const express = require('express');
 const TextToSpeechV1 = require('watson-developer-cloud/text-to-speech/v1');
 const app = express();
-var ejs = require('ejs');
 var path = require('path');
 
 
@@ -13,12 +12,11 @@ var filepath = path.join(__dirname, 'new.wav');
 
 
 const text_to_speech = new TextToSpeechV1({
-  username: 'e2f2e2b1-3a4a-4367-b75e-0ed549ed4c73',
-  password: '08NkLCvXsW4r',
+
 });
 
 var params = {
-  text: 'Plaese say your password',
+  text: 'Your picture will be taken in 3 seconds',
   voice: 'en-US_AllisonVoice', // Optional voice
   accept: 'audio/wav',
 };
