@@ -75,7 +75,7 @@ module.exports = function() {
       // start the recording
       var mic = cp.spawn('arecord', ['--device=plughw:1,0', '--format=S16_LE', '--rate=44100', '--channels=1']); //, '--duration=10'
       //mic.stderr.pipe(process.stderr);
-      console.log(mic, 'this is mic');
+      //mic is not it
       // save a local copy of your audio (in addition to streaming it) by uncommenting this
       //mic.stdout.pipe(require('fs').createWriteStream('test.wav'));
 
@@ -87,6 +87,8 @@ module.exports = function() {
         mic.stdout.pipe(flac.stdin);
 
         flac.stdout.pipe(transcriptInput);
+        var micInput = transcriptInput;
+        console.log(micInput);
       } else {
         mic.stdout.pipe(transcriptInput);
       }
@@ -94,7 +96,7 @@ module.exports = function() {
       // alternate option for testing: comment out all of the mic/flac stuff and pipe from a file
       //require('fs').createReadStream('test.wav').pipe(transcriptInput);
 
-      
+
       // indicate recording with a blinking red light
 
 
