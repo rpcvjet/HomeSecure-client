@@ -2,17 +2,22 @@
 
 // var RaspiCam = require('raspicam');
 
-var raspi = require('raspi-io');
+var Raspi = require('raspi-io');
 var five = require('johnny-five');
 var board = new five.Board({
-  io: new raspi(),
+  io: new Raspi(),
 });
+console.log('Did this work?');
 
-board.on('ready', function() {
+
+board.on('ready', () => {
   // Create an Led on  (GPIO4)
   // and strobe it on/off
-  var led = new five.Led('P1-7');
-  led.strobe(500);
+  console.log('Yes it did...');
+  (new five.Led('GPIO4')).strobe();
+
+  // var led = new five.Led('P1-7');
+  // led.strobe(500);
 });
 
 
