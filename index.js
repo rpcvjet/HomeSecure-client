@@ -1,6 +1,7 @@
 'use strict';
 
 const takePicture = require('./controllers/photo');
+const passwordReader = require('./controllers/password');
 
 let readline = require('readline');
 const rl = readline.createInterface({
@@ -14,8 +15,17 @@ rl.prompt();
 rl.on('line', (line) => {
   switch(line.trim()) {
   case 'photo':
-    console.log("Get Ready for a photo");
+    console.log('Get Ready for a photo');
     takePicture()
+    .then(() => rl.prompt())
+    .catch((err) => {
+      console.log(err);
+      rl.prompt();
+    });
+    break;
+  case 'password':
+    console.log('Type in password:');
+    passwordReader()
     .then(() => rl.prompt())
     .catch((err) => {
       console.log(err);
