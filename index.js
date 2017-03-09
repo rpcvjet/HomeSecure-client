@@ -12,12 +12,12 @@
 //   output.write(input.read());
 // });
 
-
-var raspi = require('raspi-io');
-var five = require('johnny-five');
-var board = new five.Board({
-  io: new raspi()
-});
+// 
+// var raspi = require('raspi-io');
+// var five = require('johnny-five');
+// var board = new five.Board({
+//   io: new raspi()
+// });
 var Gpio = require('onoff').Gpio,
   led = new Gpio(17, 'out');
 
@@ -35,7 +35,7 @@ setTimeout(function() {
   console.log('Yes it is...');
 }, 5000);
 
-board.on('ready', function() {
+// board.on('ready', function() {
 
 
 
