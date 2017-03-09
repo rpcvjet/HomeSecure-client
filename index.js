@@ -15,7 +15,7 @@ button.watch(function(err, value) {
   led.writeSync(led.readSync() === 0 ? 1 : 0);
 //do stuff
   new Sound('welcome.wav').play();
-
+  console.log('the file is playing');
 
 });//end of button
 function exit() {
