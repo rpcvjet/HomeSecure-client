@@ -22,7 +22,8 @@ module.exports = function() {
     camera.on('exit', function( timestamp ){
       console.log('photo child process has exited at ' + timestamp );
       camera.stop();
-      resolve();
+    //resolve image path 
+	 resolve(`${__dirname}./photo/image.jpg`);
     });
 
     camera.start();

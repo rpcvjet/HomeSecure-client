@@ -12,6 +12,9 @@ const rl = readline.createInterface({
 
 rl.prompt();
 
+
+let tempPassword;
+
 rl.on('line', (line) => {
   switch(line.trim()) {
   case 'photo':
@@ -24,9 +27,12 @@ rl.on('line', (line) => {
     });
     break;
   case 'password':
-    console.log('Type in password:');
     passwordReader()
-    .then(() => rl.prompt())
+    .then((pass) => {
+	tempPassword = pass
+	console.log('tempPassword', tempPassword)
+	rl.prompt()
+    })
     .catch((err) => {
       console.log(err);
       rl.prompt();
