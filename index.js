@@ -16,7 +16,8 @@ button.watch(function(err, value) {
   led.writeSync(led.readSync() === 0 ? 1 : 0);
 //do stuff
 const text_to_speech = new TextToSpeechV1({
-
+  username: '8c33d8d9-9c61-4e7e-a998-310bf03a24fe',
+  password: 'Ner5yJEu40vD',
 });
 var params = {
   text: 'Welcome home. Your picture will now be taken for authentication purposes',
@@ -26,13 +27,11 @@ var params = {
 // Pipe the synthesized text to a file
 text_to_speech.synthesize(params).pipe(fs.createWriteStream('new.wav'));
 console.log('this is before the get route');
-app.get('/', function(req, res){
   res.set({'Content-Type': 'audio/wav'});
   var readStream = fs.createReadStream(filepath);
   readStream.pipe(res);
-});
 
-});
+});//end of button function
 function exit() {
   buzzer.unexport();
   button.unexport();
