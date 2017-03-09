@@ -1,7 +1,9 @@
-const superagent = require('superagent');
 
+const superagent = require('superagent');
+let tempPassword = 'this is a password';
 
 module.exports = function() {
+
   return new Promise ((resolve, reject) => {
 
     superagent.post(`172.16.13.220/api/unlock`)
