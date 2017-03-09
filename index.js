@@ -1,32 +1,44 @@
 'use strict';
-
+require('dotenv');
+const fs = require('fs');
+const express = require('express');
+const TextToSpeechV1 = require('watson-developer-cloud/text-to-speech/v1');
+const app = express();
 // var RaspiCam = require('raspicam');
-
-// const raspi = require('raspi');
-// const gpio = require('raspi-gpio');
-
 var Gpio = require('onoff').Gpio,
   led = new Gpio(16, 'out');
-  var button = new Gpio(17, 'in', 'both');
-  console.log('Is this working?');
+var button = new Gpio(17, 'in', 'both');
+console.log('Is this working?');
 
-    button.watch(function(err, value) {
-    if (err) exit();
-    led.writeSync(led.readSync() === 0 ? 1 : 0);
-    console.log('BUTTTTTTTON');
-  });
+//start the program here
+button.watch(function(err, value) {
+  if (err) exit();
+  led.writeSync(led.readSync() === 0 ? 1 : 0);
+//do stuff
+const text_to_speech = new TextToSpeechV1({
 
+});
+var params = {
+  text: 'Welcome home. Your picture will now be taken for authentication purposes',
+  voice: 'en-US_AllisonVoice', // Optional voice
+  accept: 'audio/wav',
+};
+// Pipe the synthesized text to a file
+text_to_speech.synthesize(params).pipe(fs.createWriteStream('new.wav'));
+console.log('this is before the get route');
+app.get('/', function(req, res){
+  res.set({'Content-Type': 'audio/wav'});
+  var readStream = fs.createReadStream(filepath);
+  readStream.pipe(res);
+});
 
-  function exit() {
-    buzzer.unexport();
-    button.unexport();
-    process.exit();
-  }
-  process.on('SIGINT', exit);
-
-
-
-
+});
+function exit() {
+  buzzer.unexport();
+  button.unexport();
+  process.exit();
+}
+process.on('SIGINT', exit);
 console.log('If this came up without the yes then nope.');
 
 //
