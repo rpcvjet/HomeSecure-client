@@ -28,23 +28,17 @@ var iv = setInterval(function(){
 
 // Stop blinking the LED and turn it off after 5 seconds.
 setTimeout(function() {
+  console.log('Is this working?');
   clearInterval(iv); // Stop blinking
   led.writeSync(0);  // Turn LED off.
   led.unexport();    // Unexport GPIO and free resources
+  console.log('Yes it is...');
 }, 5000);
 
 board.on('ready', function() {
-console.log('Is this working?');
-  
-  // Create an Led on pin 7 on P1 (GPIO4)
-  // and strobe it on/off
-  var led = new five.Led('P1-3');
-  var led = new five.Led('P1-5');
-  
-  led.strobe(500);
-    console.log('Yes it is...');
 
-});
+
+
 
 
 
