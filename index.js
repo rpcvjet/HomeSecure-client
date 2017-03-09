@@ -15,11 +15,17 @@ rl.on('line', (line) => {
   switch(line.trim()) {
   case 'photo':
     console.log("Get Ready for a photo");
+    takePicture()
+    .then(() => rl.prompt())
+    .catch((err) => {
+      console.log(err);
+      rl.prompt();
+    });
+    break;
   default:
     console.log('BOOOOOOOYAAAA', line);
-    takePicture.camera.start();
   }
-  rl.prompt();
+
 });
 var Gpio = require('onoff').Gpio;
 
