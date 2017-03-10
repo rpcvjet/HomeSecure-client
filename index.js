@@ -4,7 +4,8 @@ const takePicture = require('./controllers/photo');
 const passwordReader = require('./controllers/password');
 const unlockDoor = require('./controllers/unlock');
 
-module.exports.tempPassword = 'tempPassword';
+module.exports = exports = {};
+exports.tempPassword;
 
 let readline = require('readline');
 const rl = readline.createInterface({
@@ -16,11 +17,11 @@ const rl = readline.createInterface({
 rl.prompt();
 
 
-let tempPassword;
+
 
 rl.on('line', (line) => {
   switch(line.trim()) {
-  case 'photo':
+    case 'photo':
     console.log('Get Ready for a photo');
     takePicture()
     .then(() => rl.prompt())
@@ -29,28 +30,28 @@ rl.on('line', (line) => {
       rl.prompt();
     });
     break;
-  case 'p':
+    case 'p':
     passwordReader()
-    .then((pass) => {
-	tempPassword = pass
-	console.log('tempPassword', tempPassword)
-	rl.prompt()
+    .then((password) => {
+      exports.tempPassword = password;
+      console.log('tempPassword', exports.tempPassword);
+      rl.prompt();
     })
     .catch((err) => {
       console.log(err);
       rl.prompt();
     });
     break;
-  case 'u':
+    case 'u':
     console.log('Now to unlock');
-    unlockDoor()
+    unlockDoor(exports.tempPassword)
     .then(() => rl.prompt())
     .catch((err) => {
       console.log(err);
       rl.prompt();
     });
     break;
-  default:
+    default:
     console.log('BOOOOOOOYAAAA', line);
   }
 

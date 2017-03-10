@@ -1,10 +1,10 @@
 
 const superagent = require('superagent');
 
-const tempPassword = require('tempPassword');
+// const tempPassword = require('tempPassword');
 
 
-module.exports = function() {
+module.exports = function(tempPassword) {
 
   return new Promise ((resolve, reject) => {
 
@@ -17,5 +17,4 @@ module.exports = function() {
     })
     .catch((err) => console.error(err));
   });
-
 };
