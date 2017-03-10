@@ -1,27 +1,28 @@
 'use strict';
 
+const Gpio = require('onoff').Gpio
+const Sound = require('node-aplay')
+
 const takePicture = require('./controllers/photo');
 const passwordReader = require('./controllers/password');
 const unlockDoor = require('./controllers/unlock');
-const Sound = require('node-aplay');
+const soundPlay = require('./controllers/sound.js');
 
-module.exports = exports = {};
-exports.tempPassword;
+let led = new Gpio(17, 'out');
 
-var Gpio = require('onoff').Gpio,
-  led = new Gpio(17, 'out');
-var button = new Gpio(19, 'in');
+led.writeSync(0)
 
-  led.writeSync(0)
-  new Sound(`${__dirname}/assets/welcome.wav`).play();
-  takePicture()
-  .then(() => passwordReader())
-  .then(password => {
-    console.log('you said', password)
-    return  unlockDoor(password)
-  })
-  .then(() => {
-    console.log('access granted')
-    led.writeSync(1)
-    new Sound(`${__dirname}/assets/recognized.wav`).play();
-  })
+new Sound(`${__dirname}/assets/welcome.wav`).play();
+takePicture()
+.then(() => soundPlay(`${__dirname}/assets/password.wav`))	
+.then(() => passwordReader())
+.then(password => {
+	console.log('you said', password)
+	return  unlockDoor(password)
+})
+.then(() => {
+	console.log('access granted')
+	led.writeSync(1)
+	return soundPlay(`${__dirname}/assets/recognized.wav`)
+})
+.catch(() => soundPlay(`${__dirname}/assets/notrecognized.wav`))
