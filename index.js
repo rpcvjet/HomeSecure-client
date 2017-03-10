@@ -12,10 +12,6 @@ var Gpio = require('onoff').Gpio,
   led = new Gpio(17, 'out');
 var button = new Gpio(19, 'in');
 
-button.watch(function(err) {
-  if (err) exit();
-
-
   led.writeSync(0)
   new Sound(`${__dirname}/assets/welcome.wav`).play();
   takePicture()
@@ -29,12 +25,3 @@ button.watch(function(err) {
     led.writeSync(1)
     new Sound(`${__dirname}/assets/recognized.wav`).play();
   })
-
-});
-
-function exit() {
-  button.unexport();
-  process.exit();
-}
-
-process.on('SIGINT', exit);
