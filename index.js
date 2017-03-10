@@ -10,7 +10,7 @@ exports.tempPassword;
 
 var Gpio = require('onoff').Gpio,
   led = new Gpio(17, 'out');
-var button = new Gpio(19, 'in', 'both');
+var button = new Gpio(19, 'in');
 
 button.watch(function(err) {
   if (err) exit();
