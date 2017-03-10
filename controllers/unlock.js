@@ -1,6 +1,6 @@
 
 const superagent = require('superagent');
-const lighting = require('light.js');
+const lighting = require('./light.js');
 // const tempPassword = require('tempPassword');
 
 
