@@ -10,11 +10,10 @@ exports.tempPassword;
 
 var Gpio = require('onoff').Gpio,
   led = new Gpio(17, 'out');
-button = new Gpio(19, 'in', 'both');
+var button = new Gpio(19, 'in', 'both');
 
-button.watch(function(err, value) {
+button.watch(function(err) {
   if (err) exit();
-  buzzer.writeSync(value);
 
 
   led.writeSync(0)
