@@ -33,7 +33,7 @@ rl.on('line', (line) => {
     case 'p':
     passwordReader()
     .then((password) => {
-      exports.tempPassword = password;
+      exports.tempPassword = password.trim();
       console.log('tempPassword', exports.tempPassword);
       rl.prompt();
     })
