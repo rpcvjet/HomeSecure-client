@@ -11,10 +11,19 @@ exports.tempPassword;
 var Gpio = require('onoff').Gpio,
 led = new Gpio(17, 'out');
 
+function delay(ms){
+	var ctr, rej, p = new Promise(function (resolve, reject) {
+		ctr = setTimeout(resolve, ms);
+		rej = reject;
+	});
+	p.cancel = function(){ clearTimeout(ctr); rej(Error("Cancelled"))};
+	return p;
+}
+
 led.writeSync(0)
 new Sound(`${__dirname}/assets/welcome.wav`).play();
-setTimeout(5000);
-takePicture()
+delay(5000)
+.then(takePicture())
 .then(() => passwordReader())
 .then(password => {
 	console.log('you said', password)
