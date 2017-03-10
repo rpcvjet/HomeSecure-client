@@ -1,6 +1,6 @@
 
 const superagent = require('superagent');
-
+const lighting = require('light.js');
 // const tempPassword = require('tempPassword');
 
 
@@ -13,6 +13,9 @@ module.exports = function(tempPassword) {
      .attach('image', `${__dirname}/../photo/image.jpg`)
     .then(res => {
       console.log('tempPassword==============================>',tempPassword);
+      if(res.status === 200){
+        setTimeout();
+      }
     })
     .catch((err) => console.error(err));
   });
