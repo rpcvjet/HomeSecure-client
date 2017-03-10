@@ -12,8 +12,7 @@ module.exports = function(tempPassword) {
     .field('password', tempPassword)
      .attach('image', `${__dirname}/../photo/image.jpg`)
     .then(res => {
-      console.log(res);
-      console.log(tempPassword);
+      console.log('tempPassword==============================>',tempPassword);
     })
     .catch((err) => console.error(err));
   });
