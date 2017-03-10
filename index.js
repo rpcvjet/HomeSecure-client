@@ -4,8 +4,16 @@ const takePicture = require('./controllers/photo');
 const passwordReader = require('./controllers/password');
 const unlockDoor = require('./controllers/unlock');
 
+
 module.exports = exports = {};
 exports.tempPassword;
+
+var Gpio = require('onoff').Gpio,
+led = new Gpio(17, 'out');
+
+var iv = setInterval(function(){
+  led.writeSync(led.readSync() === 0 ? 1 : 0)
+}, 500);
 
 let readline = require('readline');
 const rl = readline.createInterface({
@@ -56,20 +64,41 @@ rl.on('line', (line) => {
   }
 
 });
-var Gpio = require('onoff').Gpio;
 
-let BUTTON_GPIO = 12;
-let RED_LED_GPIO = 16;
 
-var redLED = new Gpio(RED_LED_GPIO, 'out');
 
-redLED.writeSync(1);
 
-function exit(err) {
-  console.log('exit');
-  if (err) console.log(err);
-  button.unexport();
-  process.exit();
-}
+// Stop blinking the LED and turn it off after 5 seconds.
+setTimeout(function() {
+  clearInterval(iv); // Stop blinking
+  led.writeSync(0);  // Turn LED off.
+  led.unexport();    // Unexport GPIO and free resources
+}, 5000);
 
-process.on('SIGINT', exit);
+
+
+
+
+
+
+
+
+
+
+// var Gpio = require('onoff').Gpio;
+//
+// let BUTTON_GPIO = 12;
+// let RED_LED_GPIO = 16;
+//
+// var redLED = new Gpio(RED_LED_GPIO, 'out');
+//
+// redLED.writeSync(1);
+//
+// function exit(err) {
+//   console.log('exit');
+//   if (err) console.log(err);
+//   button.unexport();
+//   process.exit();
+// }
+//
+// process.on('SIGINT', exit);
