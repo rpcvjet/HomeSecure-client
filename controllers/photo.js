@@ -1,5 +1,13 @@
 var RaspiCam = require('raspicam');
 
+function delay(ms){
+    var ctr, rej, p = new Promise(function (resolve, reject) {
+        ctr = setTimeout(resolve, ms);
+        rej = reject;
+    });
+    p.cancel = function(){ clearTimeout(ctr); rej(Error("Cancelled"))};
+    return p;
+}
 
 var camera = new RaspiCam({
   mode: 'photo',
@@ -25,7 +33,7 @@ module.exports = function() {
       resolve(`${__dirname}/photo/image.jpg`);
     });
 
-    camera.start();
+    delay(5000).then(camera.start());
   });
 
 };
