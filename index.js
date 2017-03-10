@@ -24,4 +24,5 @@ takePicture()
 .then(() => {
 	console.log('access granted')
 	led.writeSync(1)
+	new Sound(`${__dirname}/assets/recognized.wav`).play();
 })
