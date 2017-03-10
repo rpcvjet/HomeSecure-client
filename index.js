@@ -15,9 +15,7 @@ led = new Gpio(17, 'out');
 
 led.writeSync(0)
 new Sound(`${__dirname}/assets/welcome.wav`).play();
-setTimeout(function(){
-	takePicture();
-}, 5000)
+takePicture()
 .then(() => passwordReader())
 .then(password => {
 	console.log('you said', password)
