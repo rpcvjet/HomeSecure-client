@@ -1,6 +1,8 @@
 
 const superagent = require('superagent');
-let tempPassword = 'this is a password';
+
+const tempPassword = require('tempPassword');
+
 
 module.exports = function() {
 
@@ -11,6 +13,7 @@ module.exports = function() {
      .attach('image', `${__dirname}/../photo/image.jpg`)
     .then(res => {
       console.log(res);
+      console.log(tempPassword);
     })
     .catch((err) => console.error(err));
   });

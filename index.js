@@ -4,6 +4,8 @@ const takePicture = require('./controllers/photo');
 const passwordReader = require('./controllers/password');
 const unlockDoor = require('./controllers/unlock');
 
+module.exports.tempPassword = 'tempPassword';
+
 let readline = require('readline');
 const rl = readline.createInterface({
   input: process.stdin,
